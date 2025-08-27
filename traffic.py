@@ -49,19 +49,27 @@ def load_data(data_dir):
     images = []
     labels = []
     for i in range(NUM_CATEGORIES):
-        folder_path = os.path.join(data_dir, f"{i}")
+        folder_path = os.path.join(data_dir, f"{i}") # Ex. gtsrb/0
 
         print(f"folder path: {folder_path}")
 
         entries = os.listdir(folder_path)
-        for entry in entries:
+        for j, entry in enumerate(entries):
             if os.path.isfile(os.path.join(folder_path, entry)):
                 try:
                     img = cv2.imread(entry)
                     if img is not None:
-                        print(img.shape())
 
-                        images.append(img)
+                        if i == 0 and j == 0:
+                            print(img.shape)
+
+                        img.reshape((30, 30, 3))
+                        
+                        if i == 0 and j == 0:
+                            print(img.shape)
+                    
+
+                        images.append(img / 255)
                         labels.append(i)
                     pass
                 except:
